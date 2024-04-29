@@ -18,7 +18,7 @@ stream = client.chat.completions.create(
     messages=[{"role": "user", "content": "Say this is a test"}],
     stream=True,
 )
-print(stream["choices"][0].message)
+
 for chunk in stream:
     if chunk.choices[0].delta.content is not None:
         print(chunk.choices[0].delta.content, end="")
