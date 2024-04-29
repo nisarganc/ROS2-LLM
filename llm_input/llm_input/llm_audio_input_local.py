@@ -46,7 +46,7 @@ config = UserConfig()
 
 class AudioInput(Node):
     def __init__(self):
-        super().__init__("llm_audio_input")
+        super().__init__("llm_audio_input_local")
         # tmp audio file
         self.tmp_audio_file = "/tmp/user_audio_input.flac"
 
@@ -67,7 +67,7 @@ class AudioInput(Node):
             String, "/llm_input_audio_to_text", 0
         )
         # Initialization ready
-        self.publish_string("llm_audio_input", self.initialization_publisher)
+        self.publish_string("llm_audio_input_local", self.initialization_publisher)
 
     def state_listener_callback(self, msg):
         if msg.data == "listening":

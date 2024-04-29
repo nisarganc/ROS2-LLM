@@ -51,7 +51,7 @@ class UserConfig:
         self.openai_model = "gpt-3.5-turbo-0613"
         # self.openai_model="gpt-4-0613"
         # [optional]: Name of the organization under which the OpenAI API key is registered
-        self.openai_organization = "Auromix"
+        self.openai_organization = "Technische Universität Nürnberg"
         # [optional]: Controls the creativity of the AI’s responses. Higher values lead to more creative, but less coherent, responses
         self.openai_temperature = 1
         # [optional]: Probability distribution cutoff for generating responses
@@ -115,7 +115,7 @@ class UserConfig:
 
         # OpenAI Whisper Model size related
         # [optional]: OpenAI Whisper Model size: tiny base small medium large
-        self.whisper_model_size = "medium"
+        self.whisper_model_size = "tiny"
         # [optional]: OpenAI Whisper Model language: en
         self.whisper_language="en"
         # Audio recording related

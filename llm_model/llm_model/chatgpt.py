@@ -44,15 +44,18 @@ from std_msgs.msg import String
 import json
 import os
 import time
-import openai
+from openai import OpenAI
 from llm_config.user_config import UserConfig
 
 
 # Global Initialization
 config = UserConfig()
-openai.api_key = config.openai_api_key
+# openai.api_key = config.openai_api_key
 # openai.organization = config.openai_organization
-
+openai = OpenAI(
+    # This is the default and can be omitted
+    api_key=config.openai_api_key,
+)
 
 class ChatGPTNode(Node):
     def __init__(self):
@@ -178,7 +181,7 @@ class ChatGPTNode(Node):
         """
         # Log
         self.get_logger().info(f"Sending messages to OpenAI: {messages_input}")
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model=config.openai_model,
             messages=messages_input,
             functions=config.robot_functions_list,
@@ -203,8 +206,8 @@ class ChatGPTNode(Node):
         function_flag = 0: no function call, 1: function call
         """
         # Getting response information
-        message = chatgpt_response["choices"][0]["message"]
-        content = message.get("content")
+        message = chatgpt_response["choices"][0].message
+        content = message.content
         function_call = message.get("function_call", None)
 
         # Initializing function flag, 0: no function call, 1: function call

@@ -46,8 +46,8 @@ def generate_launch_description():
             arx5_bringup_launch,
             Node(
                 package="llm_input",
-                executable="llm_audio_input",
-                name="llm_audio_input",
+                executable="llm_audio_input_local",
+                name="llm_audio_input_local",
                 output="screen",
             ),
             Node(

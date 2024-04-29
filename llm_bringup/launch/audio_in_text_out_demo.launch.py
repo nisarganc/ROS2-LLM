@@ -33,8 +33,8 @@ def generate_launch_description():
         [
             Node(
                 package="llm_input",
-                executable="llm_audio_input",
-                name="llm_audio_input",
+                executable="llm_audio_input_local",
+                name="llm_audio_input_local",
                 output="screen",
             ),
             Node(
