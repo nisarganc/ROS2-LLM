@@ -50,16 +50,14 @@ from llm_config.user_config import UserConfig
 
 # Global Initialization
 config = UserConfig()
-# openai.api_key = config.openai_api_key
-# openai.organization = config.openai_organization
-openai = OpenAI(
-    # This is the default and can be omitted
+client = OpenAI(
     api_key=config.openai_api_key,
 )
 
 class ChatGPTNode(Node):
     def __init__(self):
         super().__init__("ChatGPT_node")
+
         # Initialization publisher
         self.initialization_publisher = self.create_publisher(
             String, "/llm_initialization_state", 0
@@ -85,6 +83,7 @@ class ChatGPTNode(Node):
         self.llm_feedback_publisher = self.create_publisher(
             String, "/llm_feedback_to_user", 0
         )
+
         # ChatGPT function call client
         # When function call is detected
         # ChatGPT client will call function call service in robot node
@@ -181,7 +180,7 @@ class ChatGPTNode(Node):
         """
         # Log
         self.get_logger().info(f"Sending messages to OpenAI: {messages_input}")
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model=config.openai_model,
             messages=messages_input,
             functions=config.robot_functions_list,

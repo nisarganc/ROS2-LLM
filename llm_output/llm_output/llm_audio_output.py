@@ -66,34 +66,14 @@ class AudioOutput(Node):
             String, "/llm_feedback_to_user", self.feedback_for_user_callback, 10
         )
 
-        # # AWS parameters
-        # self.aws_access_key_id = config.aws_access_key_id
-        # self.aws_secret_access_key = config.aws_secret_access_key
-        # self.aws_region_name = config.aws_region_name
-        # self.aws_session = boto3.Session(
-        #     aws_access_key_id=self.aws_access_key_id,
-        #     aws_secret_access_key=self.aws_secret_access_key,
-        #     region_name=self.aws_region_name,
-        # )
-
         # Initialization ready
         self.publish_string("output ready", self.initialization_publisher)
 
     def feedback_for_user_callback(self, msg):
         self.get_logger().info("Received text: '%s'" % msg.data)
 
-        # # Call AWS Polly service to synthesize speech
-        # polly_client = self.aws_session.client("polly")
-        # self.get_logger().info("Polly client successfully initialized.")
-        # response = polly_client.synthesize_speech(
-        #     Text=msg.data, OutputFormat="mp3", VoiceId=config.aws_voice_id
-        # )
-
         # Save the audio output to a file
         output_file_path = "/tmp/speech_output.mp3"
-        # with open(output_file_path, "wb") as file:
-        #     file.write(response["AudioStream"].read())
-        # Play the audio output
         os.system("mpv" + " " + output_file_path)
         self.get_logger().info("Finished Polly playing.")
         self.publish_string("feedback finished", self.llm_state_publisher)

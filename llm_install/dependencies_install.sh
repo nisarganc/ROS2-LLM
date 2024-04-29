@@ -13,15 +13,15 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y python3
 sudo apt install -y python3-pip
-pip install openai
+pip install setuptools==58.2.0
+pip install setuptools-rust==1.0.0
+pip install openai==1.23.6
 sudo apt install gnome-terminal -y
 pip install pysocks
 pip install requests
 sudo apt-get install libcanberra-gtk-module libcanberra-gtk3-module -y
 
 
-# Install AWS boto3
-pip install boto3
 pip install numpy
 pip install sounddevice
 pip install pydub

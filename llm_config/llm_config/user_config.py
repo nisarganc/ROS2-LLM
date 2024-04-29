@@ -48,8 +48,7 @@ class UserConfig:
         # [required]: OpenAI API key
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         # [required]: Name of the OpenAI language model to be used
-        self.openai_model = "gpt-3.5-turbo-0613"
-        # self.openai_model="gpt-4-0613"
+        self.openai_model="gpt-4-0613"
         # [optional]: Name of the organization under which the OpenAI API key is registered
         self.openai_organization = "Technische Universität Nürnberg"
         # [optional]: Controls the creativity of the AI’s responses. Higher values lead to more creative, but less coherent, responses
@@ -98,20 +97,6 @@ class UserConfig:
         # [optional]: Multi-robot list
         # "" is for robot without name
         self.multi_robots_name=["turtle1","turtle2","minipupper",""]
-        
-        # AWS related
-        # [required]: AWS IAM access key id
-        self.aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
-        # [required]: AWS IAM secret access key
-        self.aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-        # [required]: AWS IAM region name
-        self.aws_region_name = 'ap-southeast-1'
-        # [required]: AWS S3 bucket name
-        self.bucket_name = 'auromixbucket'
-        # [optional]: AWS transcription language, change this to 'zh-CN' for Chinese
-        self.aws_transcription_language = "en-US"
-        # [optional]: AWS polly voice id, change this to 'Zhiyu' for Chinese
-        self.aws_voice_id = "Ivy"
 
         # OpenAI Whisper Model size related
         # [optional]: OpenAI Whisper Model size: tiny base small medium large
