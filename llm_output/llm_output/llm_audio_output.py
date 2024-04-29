@@ -73,7 +73,7 @@ class AudioOutput(Node):
         self.get_logger().info("Received text: '%s'" % msg.data)
 
         # Save the audio output to a file
-        output_file_path = "/tmp/speech_output.mp3"
+        output_file_path = config.chat_history_path + "speech_output.mp3"
         os.system("mpv" + " " + output_file_path)
         self.get_logger().info("Finished Polly playing.")
         self.publish_string("feedback finished", self.llm_state_publisher)
