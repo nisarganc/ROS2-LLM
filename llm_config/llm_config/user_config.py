@@ -51,6 +51,7 @@ class UserConfig:
         self.openai_model="gpt-4-0613"
         # [optional]: Name of the organization under which the OpenAI API key is registered
         self.openai_organization = "Technische Universität Nürnberg"
+        self.openai_orgcode = "org-4TZSGjlk0ZJEntgR8CdbQrbn"
         # [optional]: Controls the creativity of the AI’s responses. Higher values lead to more creative, but less coherent, responses
         self.openai_temperature = 1
         # [optional]: Probability distribution cutoff for generating responses

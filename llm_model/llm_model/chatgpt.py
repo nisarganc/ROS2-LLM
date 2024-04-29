@@ -51,7 +51,8 @@ from llm_config.user_config import UserConfig
 # Global Initialization
 config = UserConfig()
 client = OpenAI(
-    api_key=config.openai_api_key,
+    api_key=config.openai_api_key
+    
 )
 
 class ChatGPTNode(Node):
@@ -185,14 +186,14 @@ class ChatGPTNode(Node):
             messages=messages_input,
             functions=config.robot_functions_list,
             function_call="auto",
-            # temperature=config.openai_temperature,
-            # top_p=config.openai_top_p,
-            # n=config.openai_n,
-            # stream=config.openai_stream,
-            # stop=config.openai_stop,
-            # max_tokens=config.openai_max_tokens,
-            # presence_penalty=config.openai_presence_penalty,
-            # frequency_penalty=config.openai_frequency_penalty,
+            temperature=config.openai_temperature,
+            top_p=config.openai_top_p,
+            n=config.openai_n,
+            stream=config.openai_stream,
+            stop=config.openai_stop,
+            max_tokens=config.openai_max_tokens,
+            presence_penalty=config.openai_presence_penalty,
+            frequency_penalty=config.openai_frequency_penalty,
         )
         # Log
         self.get_logger().info(f"OpenAI response: {response}")
@@ -205,9 +206,9 @@ class ChatGPTNode(Node):
         function_flag = 0: no function call, 1: function call
         """
         # Getting response information
-        message = chatgpt_response["choices"][0].message
+        message = chatgpt_response.choices[0].message
         content = message.content
-        function_call = message.get("function_call", None)
+        function_call = message.function_call
 
         # Initializing function flag, 0: no function call, 1: function call
         function_flag = 0
