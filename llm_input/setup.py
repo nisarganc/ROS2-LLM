@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             "llm_audio_input_local = llm_input.llm_audio_input_local:main",
+            "llm_text_input_local = llm_input.llm_text_input_local:main",
         ],
     },
 )

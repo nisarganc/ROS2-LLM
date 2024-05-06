@@ -37,8 +37,8 @@ def generate_launch_description():
         [
             Node(
                 package="llm_input",
-                executable="llm_audio_input_local",
-                name="llm_audio_input_local",
+                executable="llm_text_input_local",
+                name="llm_text_input_local",
                 output="screen",
             ),
             Node(
@@ -48,22 +48,10 @@ def generate_launch_description():
                 output="screen",
             ),
             Node(
-                package="llm_output",
-                executable="llm_audio_output",
-                name="llm_audio_output",
-                output="screen",
-            ),
-            Node(
                 package="llm_robot",
-                executable="turtle_robot",
-                name="turtle_robot",
+                executable="turtle7",
+                name="turtle7",
                 output="screen",
-            ),
-            Node(
-                package="turtlesim",
-                executable="turtlesim_node",
-                name="turtlesim_node",
-                output="screen",
-            ),
+            )
         ]
     )

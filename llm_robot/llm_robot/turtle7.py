@@ -44,28 +44,21 @@ from llm_config.user_config import UserConfig
 # Global Initialization
 config = UserConfig()
 
-
-class TurtleRobot(Node):
+class turtle7(Node):
     def __init__(self):
-        super().__init__("turtle_robot")
-        # Client for reset
-        self.reset_client = self.create_client(Empty, "/reset")
-        # Publisher for cmd_vel
-        self.publisher_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
+        super().__init__("turtle7")
 
-        while not self.reset_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Service /reset not available, waiting again...")
-        # Server for function call
+        # Publisher for cmd_vel
+        self.publisher_ = self.create_publisher(Twist, "/turtle7/cmd_vel", 10)
+        
+        # Server for ChatGPT function call
         self.function_call_server = self.create_service(
             ChatGPT, "/ChatGPT_function_call_service", self.function_call_callback
         )
-        # Node initialization log
-        self.get_logger().info("TurtleRobot node has been initialized")
 
     def function_call_callback(self, request, response):
-        req = json.loads(request.request_text)
-        function_name = req["name"]
-        function_args = json.loads(req["arguments"])
+        function_name = request.request_name
+        function_args = json.loads(request.request_text)
         func_obj = getattr(self, function_name)
         try:
             function_execution_result = func_obj(**function_args)
@@ -78,7 +71,7 @@ class TurtleRobot(Node):
 
     def publish_cmd_vel(self, **kwargs):
         """
-        Publishes cmd_vel message to control the movement of turtlesim
+        Publishes cmd_vel message to control the movement of turtlebot4
         """
         linear_x = kwargs.get("linear_x", 0.0)
         linear_y = kwargs.get("linear_y", 0.0)
@@ -99,24 +92,9 @@ class TurtleRobot(Node):
         self.get_logger().info(f"Publishing cmd_vel message successfully: {twist_msg}")
         return twist_msg
 
-    def reset_turtlesim(self, **kwargs):
-        """
-        Resets the turtlesim to its initial state and clears the screen
-        """
-        empty_req = Empty.Request()
-        try:
-            future = self.reset_client.call_async(empty_req)
-            response_text = "Reset turtlesim successfully"
-        except Exception as error:
-            self.get_logger().info(f"Failed to reset turtlesim: {error}")
-            return str(error)
-        else:
-            return response_text
-
-
 def main():
     rclpy.init()
-    turtle_robot = TurtleRobot()
+    turtle_robot = turtle7()
     rclpy.spin(turtle_robot)
     rclpy.shutdown()
 

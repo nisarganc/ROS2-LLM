@@ -74,9 +74,7 @@ class UserConfig:
         # [optional]: The prompt given to the AI, provided by the user
         self.user_prompt = ""
         # [optional]: The generated prompt by the administrator, used as a prefix for the AI's response
-        self.system_prompt = ""
-        # TODO: System prompt only works for the first message,so it will be forgotten soon after the first message
-        # modify the llm_model/chatgpt.py, add system_prompt to every prompt to solve this problem @Herman Ye
+        self.system_prompt = "You are a turtlebot4. You are named turtle7. You have all ros2 packages installed, publish sensor data, and can move around."
         # [optional]: The generated response provided by the AI
         self.assistant_response = ""
 

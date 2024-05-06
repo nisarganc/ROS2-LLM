@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "turtle_robot = llm_robot.turtle_robot:main",
+            "turtle7 = llm_robot.turtle7:main",
             "arm_robot = llm_robot.arx5_arm_robot:main",
             "multi_robot = llm_robot.multi_robot:main",
         ],

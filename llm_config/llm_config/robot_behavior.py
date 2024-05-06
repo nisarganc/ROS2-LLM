@@ -28,10 +28,10 @@
 
 # Example robot functions list for the TurtleSim
 # The user can add, remove, or modify the functions in this list
-robot_functions_list_1 = [
+robot_functions_list_turtlebot4 = [
     {
         "name": "publish_cmd_vel",
-        "description": "Publish cmd_vel message to control the movement of turtlesim, including rotation and movement,only used for turtlesim,not for robotic arm",
+        "description": "Publish cmd_vel message to control the movement of turtlebot4, including translation and rotation velocities",
         "parameters": {
             "type": "object",
             "properties": {
@@ -68,15 +68,6 @@ robot_functions_list_1 = [
                 "angular_y",
                 "angular_z",
             ],
-        },
-    },
-    {
-        "name": "reset_turtlesim",
-        "description": "Resets the turtlesim to its initial state and clears the screen,only used for turtlesim,not for robotic arm",
-        "parameters": {
-            "type": "object",
-            "properties": {},
-            "required": [],
         },
     },
     {
@@ -119,48 +110,7 @@ robot_functions_list_1 = [
                 "yaw",
             ],
         },
-    },
-    {
-        "name": "publish_target_pose",
-        "description": "Publish target pose message to control the movement of arm robot, including x, y, z, roll, pitch, yaw. For example,[0.2, 0.2, 0.2, 0.2, 0.2, 0.2] is a valid target pose.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "x": {
-                    "type": "number",
-                    "description": "The x position of the target pose",
-                },
-                "y": {
-                    "type": "number",
-                    "description": "The y position of the target pose",
-                },
-                "z": {
-                    "type": "number",
-                    "description": "The z position of the target pose",
-                },
-                "roll": {
-                    "type": "number",
-                    "description": "The roll of the target pose in radians",
-                },
-                "pitch": {
-                    "type": "number",
-                    "description": "The pitch of the target pose in radians",
-                },
-                "yaw": {
-                    "type": "number",
-                    "description": "The yaw of the target pose in radians",
-                },
-            },
-            "required": [
-                "x",
-                "y",
-                "z",
-                "roll",
-                "pitch",
-                "yaw",
-            ],
-        },
-    },
+    }
 ]
 
 robot_functions_list_multi_robot = [
@@ -225,7 +175,7 @@ class RobotBehavior:
     """
 
     def __init__(self):
-        self.robot_functions_list = robot_functions_list_multi_robot
+        self.robot_functions_list = robot_functions_list_turtlebot4
 
 
 if __name__ == "__main__":
