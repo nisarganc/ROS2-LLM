@@ -106,17 +106,15 @@ class ChatGPTNode(Node):
         content_text, function_flag, function_call_arg, function_call_name = self.get_response_information(
             chatgpt_response
         )
-        
-        self.add_message_to_history(
-            role="assistant", content=content_text, function_call=function_call_arg, name=function_call_name
-        )
-        self.write_chat_history_to_json()
 
         if function_flag == 1:
             self.function_call(function_call_arg, function_call_name)
         else:
             self.publish_string(content_text, self.llm_feedback_publisher)
-
+            self.add_message_to_history(
+            role="assistant", content=content_text.strip("\n").strip()
+            )
+        self.write_chat_history_to_json()
 
     def generate_chatgpt_response(self, chat_history):
         """
@@ -149,26 +147,28 @@ class ChatGPTNode(Node):
 
         message = chatgpt_response.choices[0].message
         content = message.content
-        function_call_name = message.function_call.name
-        function_call_arg = message.function_call.arguments
 
         # Initializing function flag, 0: no function call and text context, 1: function call and None content
         function_flag = 0
 
         if content is not None:
             function_flag = 0
+            function_call_name = None
+            function_call_arg = None
         else:
             function_flag = 1
+            function_call_name = message.function_call.name
+            function_call_arg = message.function_call.arguments
 
-        self.get_logger().info(
-            f"Content from OpenAI: {content}, type: {type(content)}"
-        )
-        self.get_logger().info( 
-            f"Function call name from OpenAI: {function_call_name}, type: {type(function_call_name)}"
-        )
-        self.get_logger().info(
-            f"Function call from OpenAI: {function_call_arg}, type: {type(function_call_arg)}"
-        )
+        # self.get_logger().info(
+        #     f"Content from OpenAI: {content}, type: {type(content)}"
+        # )
+        # self.get_logger().info( 
+        #     f"Function call name from OpenAI: {function_call_name}, type: {type(function_call_name)}"
+        # )
+        # self.get_logger().info(
+        #     f"Function call from OpenAI: {function_call_arg}, type: {type(function_call_arg)}"
+        #)
 
         return content, function_flag, function_call_arg, function_call_name
 
@@ -205,8 +205,9 @@ class ChatGPTNode(Node):
         response_text = response.response_text
         
         self.add_message_to_history(
-            role=self.function_name,
-            content=str(response_text),
+            role="function",
+            content=response_text.strip("\n").strip(),
+            name=self.function_name
         )
         
         # Generate chat completion
@@ -214,12 +215,16 @@ class ChatGPTNode(Node):
         content_text, function_flag, function_call_arg, function_call_name = self.get_response_information(
             second_chatgpt_response
         )
-        self.publish_string(content_text, self.llm_feedback_publisher)
+        if function_flag != 1:
+            self.add_message_to_history(
+                role="assistant", content=content_text.strip("\n").strip()
+            )
+            self.publish_string(content_text, self.llm_feedback_publisher)
 
     ####################################### HELPER FUNCTIONS ############################################
 
     def add_message_to_history(
-        self, role, content="null", function_call=None, name=None
+        self, role, content="null", name=None
     ):
         """
         Add a new message_element_object to the chat history
@@ -231,24 +236,21 @@ class ChatGPTNode(Node):
         Returns the updated chat history list.
         """
 
+        # Adding message_element_object to chat history
         message_element_object = {
             "role": role,
             "content": content,
         }
-
-        # Adding function call information if provided
-        if function_call is not None:
-            message_element_object["function_call"] = function_call
         if name is not None:
             message_element_object["name"] = name
-
-        # Adding message_element_object to chat history
+        
         config.chat_history.append(message_element_object)
+
         if len(config.chat_history) > config.chat_history_max_length: 
             self.get_logger().info(
                 f"Chat history is too long, popping out the oldest message: {config.chat_history[0]}"
             )
-            config.chat_history.pop(0)
+        config.chat_history.pop(0)
 
         # Returning updated chat history dictionary
         return config.chat_history

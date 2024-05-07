@@ -79,6 +79,14 @@ class turtle7(Node):
         angular_x = kwargs.get("angular_x", 0.0)
         angular_y = kwargs.get("angular_y", 0.0)
         angular_z = kwargs.get("angular_z", 0.0)
+        response = {
+            "linear_x": linear_x,
+            "linear_y": linear_y,
+            "linear_z": linear_z,
+            "angular_x": angular_x,
+            "angular_y": angular_y,
+            "angular_z": angular_z,
+        }
 
         twist_msg = Twist()
         twist_msg.linear.x = float(linear_x)
@@ -87,10 +95,10 @@ class turtle7(Node):
         twist_msg.angular.x = float(angular_x)
         twist_msg.angular.y = float(angular_y)
         twist_msg.angular.z = float(angular_z)
-
         self.publisher_.publish(twist_msg)
+
         self.get_logger().info(f"Publishing cmd_vel message successfully: {twist_msg}")
-        return twist_msg
+        return response
 
 def main():
     rclpy.init()
