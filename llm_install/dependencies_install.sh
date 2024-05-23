@@ -16,6 +16,8 @@ sudo apt install -y python3-pip
 pip install setuptools==58.2.0
 pip install setuptools-rust==1.0.0
 pip install openai==1.23.6
+pip install -U openai-whisper
+pip install catkin-pkg
 sudo apt install gnome-terminal -y
 pip install pysocks
 pip install requests
