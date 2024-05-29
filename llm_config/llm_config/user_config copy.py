@@ -74,7 +74,7 @@ class UserConfig:
         # [optional]: The prompt given to the AI, provided by the user
         self.user_prompt = ""
         # [optional]: The generated prompt by the administrator, used as a prefix for the AI's response
-        self.system_prompt = "You are a Multi Agent Task planner."
+        self.system_prompt = "You are a turtlebot4. You are named turtle7. You have all ros2 packages installed, publish sensor data, and can move around."
         # [optional]: The generated response provided by the AI
         self.assistant_response = ""
 
