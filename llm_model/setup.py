@@ -20,6 +20,7 @@ setup(
     entry_points={
         "console_scripts": [
             "chatgpt = llm_model.chatgpt:main",
+            "gpt = llm_model.gpt:main"
         ],
     },
 )

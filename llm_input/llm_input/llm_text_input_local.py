@@ -42,16 +42,16 @@ class TextInput(Node):
 
         # LLM initialization publisher
         self.initialization_publisher = self.create_publisher(
-            String, "/llm_initialization_state", 0
+            String, "/llm_initialization", 0
         )
 
         # LLM state listener
-        self.llm_state_subscriber = self.create_subscription(
-            String, "/llm_state", self.state_listener_callback, 0
+        self.llm_message_subscriber = self.create_subscription(
+            String, "/llm_input_message", self.state_listener_callback, 0
         )
 
         # LLM message publisher
-        self.audio_to_text_publisher = self.create_publisher(
+        self.llm_message_publisher = self.create_publisher(
             String, "/message_from_user", 0
         )
 
@@ -61,7 +61,7 @@ class TextInput(Node):
     def state_listener_callback(self, msg):
         if msg.data != "":
             self.get_logger().info(f"User Message Received: {msg.data}")
-            self.publish_string(msg.data, self.audio_to_text_publisher)
+            self.publish_string(msg.data, self.llm_message_publisher)
         else:
             self.get_logger().info("Empty Message Received!")
 

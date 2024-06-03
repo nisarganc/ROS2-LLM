@@ -1,9 +1,9 @@
 # Multi-Agent Task allocation with LLMs
 
 ## Literature
-AutoTAMP: https://yongchao98.github.io/MIT-REALM-AutoTAMP/  
-SMART-LLM: https://arxiv.org/abs/2309.10062 
-Co-NavGPT: https://arxiv.org/abs/2310.07937
+- AutoTAMP: https://yongchao98.github.io/MIT-REALM-AutoTAMP/  
+- SMART-LLM: https://arxiv.org/abs/2309.10062  
+- Co-NavGPT: https://arxiv.org/abs/2310.07937  
 
 ## TO-Do
 - Try few prompts on gpt-4 LLM and log results
@@ -30,3 +30,10 @@ Co-NavGPT: https://arxiv.org/abs/2310.07937
 ## ROS2 LLM 
 - This repository is derived from [ROS-LLM](https://github.com/Auromix/ROS-LLM). 
 - Runs locally on machine without AWS
+
+## Commands
+- cd ros2_ws
+- colcon build --symlink-install   
+- ros2 launch llm_bringup gpt_taskplanner.launch.py
+- ros2 topic pub /llm_input_message std_msgs/msg/String "data: 'Prompt message goes here'" -1
+
