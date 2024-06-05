@@ -1,4 +1,4 @@
-# Multi-Agent Task allocation with LLMs
+# Multi-Agent Task planning
 
 ## Literature
 - AutoTAMP: https://yongchao98.github.io/MIT-REALM-AutoTAMP/  
