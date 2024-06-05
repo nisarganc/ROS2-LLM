@@ -29,6 +29,7 @@
 
 ## ROS2 LLM 
 - This repository is derived from [ROS-LLM](https://github.com/Auromix/ROS-LLM). 
+- Also includes task planning code from [smart-llm](https://github.com/SMARTlab-Purdue/SMART-LLM?tab=readme-ov-file)
 - Runs locally on machine without AWS
 
 ## Commands
