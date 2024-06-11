@@ -1,3 +1,0 @@
-openai
-ai2thor
-scipy
